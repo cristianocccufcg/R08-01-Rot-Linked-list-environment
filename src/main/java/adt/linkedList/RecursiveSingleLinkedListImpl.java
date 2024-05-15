@@ -6,44 +6,68 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	protected RecursiveSingleLinkedListImpl<T> next;
 
 	public RecursiveSingleLinkedListImpl() {
-
 	}
-
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.getData() == null;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isEmpty()) return 0;
+		else {
+			return 1 + next.size();
+		}
 	}
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(isEmpty()) return null;
+		else {
+			if (data == element) return data;
+			else {
+				return next.search(element);
+			}
+		}
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(isEmpty()) {
+			this.data = element;
+			this.next = new RecursiveSingleLinkedListImpl<>();
+		} else {
+			next.insert(element);
+		}
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(isEmpty()){			
+		}
+		else {
+			if(data == element){
+				this.data = next.data;
+				this.next = next.getNext();
+			} else {
+				next.remove(element);
+			}
+		}
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T[] array = (T[]) new Comparable[this.size()];
+		this.toArray(array, 0);
+		return array;
+	}
+
+	private void toArray(T[] array, int i) {
+		if (!this.isEmpty()) {
+			array[i] = this.data;
+			this.next.toArray(array, i + 1);
+		}
 	}
 
 	public T getData() {
